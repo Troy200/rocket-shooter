@@ -108,11 +108,31 @@ while run:
     
     for redbullet in rbulletlist:
         pygame.draw.rect(screen,"red",redbullet)
+        shootsound.play()
         redbullet.x-=10
-
+        if redbullet.colliderect(yellowrect):
+            hitsound.play()
+            yhealth-=1
+            rbulletlist.remove(redbullet)
 
     text1= font.render("health= "+str(yhealth),True,"white")
     text2= font.render("health= "+str(rhealth),True,"white")
     screen.blit(text1,(0,0))
     screen.blit(text2,(1000,0))
+
+    if yhealth==0:
+        screen.fill("red")
+        gameover1= font.render("Game Over Red Wins ",True,"black")
+        screen.blit(gameover1,(300,300))
+        pygame.display.update()
+        pygame.time.delay(3000)
+        pygame.quit()
+    if rhealth==0:
+        screen.fill("yellow")
+        gameover2= font.render("Game Over Yellow Wins ",True,"black")
+        screen.blit(gameover2,(200,300))
+        pygame.display.update()
+        pygame.time.delay(3000)
+        pygame.quit()
     pygame.display.update()
+    
